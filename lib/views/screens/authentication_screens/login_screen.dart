@@ -4,7 +4,9 @@ import 'package:store_app/views/screens/authentication_screens/register_screen.d
 
 class LoginScreen extends StatelessWidget {
   final GlobalKey <FormState> _formKey = GlobalKey<FormState>();
-
+  late String email;
+  late String password; 
+  late String fullName;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +49,9 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   TextFormField(
+                    onChanged: (value) {
+                      email = value;
+                    },
                     validator: (value){
                       if(value!.isEmpty){
                           return('enter your email');

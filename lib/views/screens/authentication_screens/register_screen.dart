@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:store_app/controllers/auth_controller.dart';
 import 'package:store_app/views/screens/authentication_screens/login_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
-
-  final GlobalKey <FormState> _formKey = GlobalKey<FormState>();
-
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final AuthController _authcontroller = AuthController();
+  //late - value  will assign later
+  late String email;
+  late String fullName;
+  late String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,8 +52,11 @@ class RegisterScreen extends StatelessWidget {
                     ),
                   ),
                   TextFormField(
-                    validator: (value){
-                      if(value!.isEmpty){
+                    onChanged: (value) {
+                      email = value;
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
                         return 'enter your email';
                       } else {
                         return null;
@@ -89,11 +96,14 @@ class RegisterScreen extends StatelessWidget {
                     ),
                   ),
                   TextFormField(
+                    onChanged: (value) {
+                      fullName = value;
+                    },
                     validator: (value) {
-                      if (value!.isEmpty){
+                      if (value!.isEmpty) {
                         return 'enter your full name';
                       } else {
-                        return  null;
+                        return null;
                       }
                     },
                     decoration: InputDecoration(
@@ -129,11 +139,14 @@ class RegisterScreen extends StatelessWidget {
                     ),
                   ),
                   TextFormField(
-                     validator: (value) {
-                      if (value!.isEmpty){
+                    onChanged: (value) {
+                      password = value;
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
                         return 'enter your password';
                       } else {
-                        return  null;
+                        return null;
                       }
                     },
                     decoration: InputDecoration(
@@ -164,10 +177,10 @@ class RegisterScreen extends StatelessWidget {
                     height: 20,
                   ),
                   InkWell(
-                    onTap: (){
-                      if (_formKey.currentState!.validate()){
-                        print('correct');
-                      }else {
+                    onTap: () async  {
+                      if (_formKey.currentState!.validate()) {
+                         await _authcontroller.signUpUsers(context: context, email: email, fullName: fullName, password: password);
+                      } else {
                         print('failed');
                       }
                     },
@@ -271,8 +284,9 @@ class RegisterScreen extends StatelessWidget {
                           style: GoogleFonts.roboto(
                               fontWeight: FontWeight.w500, letterSpacing: 1)),
                       InkWell(
-                        onTap: (){
-                          Navigator.push(context,MaterialPageRoute(builder: (context){
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
                             return LoginScreen();
                           }));
                         },
