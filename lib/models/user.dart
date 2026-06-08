@@ -9,8 +9,9 @@ class User {
    final String city;
    final String locality;
    final String password;
+   final String token;
 
-  User({required this.id, required this.fullName, required this.email, required this.state, required this.city, required this.locality, required this.password});
+  User({required this.id, required this.fullName, required this.email, required this.state, required this.city, required this.locality, required this.password, required this.token});
   //Serialization:convert user object to a map
   //Map : A Map is a collection of key-value pairs, where each key is unique and maps to a specific value. In Dart, you can use the Map class to create and manipulate maps.
   Map<String , dynamic > toMap() {
@@ -21,7 +22,8 @@ class User {
       'state': state,
       'city': city,
       'locality': locality,
-      'password': password
+      'password': password,
+      'token': token
     };  
   }
 
@@ -44,7 +46,8 @@ class User {
       state: map['state'] as String? ?? "", // Handle null case for state
       city: map['city'] as String? ?? "", // Handle null case for city
       locality: map['locality'] as String? ?? "", // Handle null case for locality
-      password: map['password'] as String? ?? "" // Handle null case for password
+      password: map['password'] as String? ?? "", // Handle null case for password
+      token: map['token'] as String? ?? "" // Handle null case for token
     );
   }
 

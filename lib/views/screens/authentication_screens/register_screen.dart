@@ -3,13 +3,36 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:store_app/controllers/auth_controller.dart';
 import 'package:store_app/views/screens/authentication_screens/login_screen.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final AuthController _authcontroller = AuthController();
+
   //late - value  will assign later
   late String email;
+
   late String fullName;
+
   late String password;
+  bool _isLoading = false;
+
+  regitserUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    await _authcontroller.signUpUsers(context: context, email: email, fullName: fullName, password: password).whenComplete((){
+      //_formKey.currentState!.reset();
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -177,9 +200,9 @@ class RegisterScreen extends StatelessWidget {
                     height: 20,
                   ),
                   InkWell(
-                    onTap: () async  {
+                    onTap: ()   {
                       if (_formKey.currentState!.validate()) {
-                         await _authcontroller.signUpUsers(context: context, email: email, fullName: fullName, password: password);
+                         regitserUser();
                       } else {
                         print('failed');
                       }
@@ -263,7 +286,7 @@ class RegisterScreen extends StatelessWidget {
                             ),
                           ),
                           Center(
-                              child: Text(
+                              child: _isLoading ? const CircularProgressIndicator(color: Colors.white) : Text(
                             'Sign up',
                             style: GoogleFonts.getFont('Lato',
                                 color: Colors.white,
