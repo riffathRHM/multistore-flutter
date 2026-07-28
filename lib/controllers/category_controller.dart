@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:store_app/global_variables.dart';
 import 'package:store_app/models/category_model.dart';

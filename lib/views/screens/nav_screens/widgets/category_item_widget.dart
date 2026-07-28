@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:store_app/controllers/category_controller.dart';
 import 'package:store_app/models/category_model.dart';
+import 'package:store_app/views/screens/detail/screens/inner_category_screen.dart';
 import 'package:store_app/views/screens/nav_screens/widgets/reusable_text_widget.dart';
 
 class CategoryItemWidget extends StatefulWidget {
@@ -42,15 +43,22 @@ class _CategoryWidgetState extends State<CategoryItemWidget> {
                         crossAxisCount: 4, crossAxisSpacing: 8, mainAxisSpacing: 8),
                     itemBuilder: (context, index) {
                       final category = categories[index];
-                      return Column(
-                        children: [
-                          Image.network(
-                              category.image,
-                              width: 47,
-                              height: 47,
-                            ),
-                            Text(category.name,style:GoogleFonts.quicksand(fontWeight: FontWeight.bold,fontSize: 15)),
-                        ],
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context){
+                            return InnerCategoryScreen(category: category,);
+                          }));
+                        },
+                        child: Column(
+                          children: [
+                            Image.network(
+                                category.image,
+                                width: 47,
+                                height: 47,
+                              ),
+                              Text(category.name,style:GoogleFonts.quicksand(fontWeight: FontWeight.bold,fontSize: 15)),
+                          ],
+                        ),
                       );
                     }
                 );

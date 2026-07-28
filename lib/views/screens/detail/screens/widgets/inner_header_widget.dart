@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
 
-class HeaderWidget extends StatelessWidget {
-  const HeaderWidget({super.key});
+class InnerHeaderWidget extends StatelessWidget {
+  const InnerHeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +11,15 @@ class HeaderWidget extends StatelessWidget {
       child: Stack(
         children: [
           Image.asset('assets/icons/searchBanner.jpeg',fit:BoxFit.cover,width: MediaQuery.of(context).size.width,),
+          Positioned(
+            top:60,
+            child: IconButton(onPressed: (){
+              Navigator.of(context).pop();
+            }, icon: Icon(Icons.arrow_back),color: Colors.white,),),
           Positioned (
-            left: 10,
+            left:40,
             top: 50,
-            child : SizedBox(width: 240,height: 50,child: TextField(
+            child : SizedBox(width: 220,height: 50,child: TextField(
               decoration: InputDecoration(
                 hintText: 'Enter Text',
                 hintStyle: const TextStyle(fontSize: 14, color: Color(0xFF7F7F7F)),
